@@ -3,7 +3,7 @@ Runoff voting is a ranking order, i.e. one of the voting systems in which the vo
 
 compile the code with make:
 ```console
-$ make ./runoff.c
+$ make ./runoff
 ```
 usage:
 ```console
