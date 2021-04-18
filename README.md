@@ -17,5 +17,5 @@ $ Rank1: [candidate]
 $ Rank2: [candidate]
 $ Rank3: [candidate]
 ...
-Winner: candidate
+$ Winner: candidate
 ```
