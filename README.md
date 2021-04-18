@@ -1,6 +1,8 @@
 # runoff-voting
 Runoff voting is a ranking order, i.e. one of the voting systems in which the voter can specify a ranking of his preferred candidates.
 
+needs [libcs50 library](https://github.com/cs50/libcs50)
+
 compile the code with make:
 ```console
 $ make ./runoff
