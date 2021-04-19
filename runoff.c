@@ -86,11 +86,11 @@ int main(int argc, char *argv[])
                 printf("Invalid vote.\n");
                 return 4;
             }
+            free(name);
         }
-
         printf("\n");
     }
-
+    
     // Keep holding runoffs until winner exists
     while (true)
     {
@@ -237,6 +237,5 @@ char *inputString(FILE* fp, size_t size){
         }
     }
     str[len++]='\0';
-
     return realloc(str, sizeof(*str)*len);
 }
