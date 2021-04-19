@@ -1,6 +1,7 @@
-#include <cs50.h>
 #include <stdio.h>
 #include <string.h>
+#include <stdbool.h>
+#include <stdlib.h>
 
 // Max voters and candidates
 #define MAX_VOTERS 100
@@ -12,7 +13,7 @@ int preferences[MAX_VOTERS][MAX_CANDIDATES];
 // Candidates have name, vote count, eliminated status
 typedef struct
 {
-    string name;
+    char *name;
     int votes;
     bool eliminated;
 }
@@ -26,14 +27,15 @@ int voter_count;
 int candidate_count;
 
 // Function prototypes
-bool vote(int voter, int rank, string name);
+bool vote(int voter, int rank, char *name);
 void tabulate(void);
 bool print_winner(void);
 int find_min(void);
 bool is_tie(int min);
 void eliminate(int min);
+char *inputString(FILE* fp, size_t size);
 
-int main(int argc, string argv[])
+int main(int argc, char *argv[])
 {
     // Check for invalid usage
     if (argc < 2)
@@ -56,23 +58,29 @@ int main(int argc, string argv[])
         candidates[i].eliminated = false;
     }
 
-    voter_count = get_int("Number of voters: ");
+    printf("Number of voters: ");
+    scanf("%i", &voter_count);
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF) {}
+    
     if (voter_count > MAX_VOTERS)
     {
         printf("Maximum number of voters is %i\n", MAX_VOTERS);
         return 3;
     }
-
+    
     // Keep querying for votes
     for (int i = 0; i < voter_count; i++)
     {
-
+        
         // Query for each rank
         for (int j = 0; j < candidate_count; j++)
         {
-            string name = get_string("Rank %i: ", j + 1);
-
-            // Record vote, unless it's invalid
+            printf("Rank: ");
+            char *name = inputString(stdin, 10);
+            
+            
+         // Record vote, unless it's invalid
             if (!vote(i, j, name))
             {
                 printf("Invalid vote.\n");
@@ -86,7 +94,7 @@ int main(int argc, string argv[])
     // Keep holding runoffs until winner exists
     while (true)
     {
-        // Calculate votes given remaining candidates
+        // Calculate votes given remaining candidates   
         tabulate();
 
         // Check if election has been won
@@ -126,7 +134,7 @@ int main(int argc, string argv[])
 }
 
 // Record preference if vote is valid
-bool vote(int voter, int rank, string name)
+bool vote(int voter, int rank, char *name)
 {
     for (int i = 0; i < candidate_count; i++)
     {
@@ -213,4 +221,22 @@ void eliminate(int min)
         }
     }
     return;
+}
+
+char *inputString(FILE* fp, size_t size){
+    char *str;
+    int ch;
+    size_t len = 0;
+    str = realloc(NULL, sizeof(*str)*size);
+    if(!str)return str;
+    while(EOF!=(ch=fgetc(fp)) && ch != '\n'){
+        str[len++]=ch;
+        if(len==size){
+            str = realloc(str, sizeof(*str)*(size+=16));
+            if(!str)return str;
+        }
+    }
+    str[len++]='\0';
+
+    return realloc(str, sizeof(*str)*len);
 }
