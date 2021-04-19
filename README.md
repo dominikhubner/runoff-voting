@@ -1,5 +1,5 @@
 # runoff-voting
-Runoff voting is a ranking order, i.e. one of the voting systems in which the voter can specify a ranking of his preferred candidates.
+Runoff is a ranked choice voting system. Each voter rank the candidates in a preference list. If any candidate has a majority of the first vote preference, that candidate is declared the winner. If no candidate has more than 50% of the votes, an instant runoff takes place. The candidate that received the least amount of votes is eliminated from the election, anyone that had previously selected that candidate as their first preference now has their second preference considered. The process repeats until one candidate has the majority or the election comes to a tie.
 
 compile the code with make:
 ```console
