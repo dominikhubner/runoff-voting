@@ -76,7 +76,7 @@ int main(int argc, char *argv[])
         // Query for each rank
         for (int j = 0; j < candidate_count; j++)
         {
-            printf("Rank: ");
+            printf("Rank %i: ", j + 1);
             char *name = inputString(stdin, 10);
             
             
